@@ -17,6 +17,7 @@ public final class Issue {
 
 
     public Issue(IssueIdentifier id, String title, String description) {
+
         this.id = id;
         this.title = title;
         this.description = description;
