@@ -2,7 +2,19 @@ package com.tsmoreland.issuetracker.shared;
 
 import org.apache.logging.log4j.util.Strings;
 
+import java.util.Objects;
+
 public final class Guard {
+
+    /**
+     * throws IllegalArgumentException if parameter is null
+     * @param parameter value to check
+     */
+    public static void againstNull(Object parameter) {
+        if (Objects.isNull(parameter)) {
+            throw new IllegalArgumentException("value cannot be null");
+        }
+    }
 
     /**
      * throws IllegalArgumentException if parameter is null or whitespace

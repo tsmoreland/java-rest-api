@@ -3,6 +3,8 @@ package com.tsmoreland.issuetracker.issues.domain.models.issuesaggregate;
 import java.time.Instant;
 import java.util.Optional;
 
+import com.tsmoreland.issuetracker.shared.Guard;
+
 public final class Issue {
 
     private IssueIdentifier id;
@@ -17,6 +19,9 @@ public final class Issue {
 
 
     public Issue(IssueIdentifier id, String title, String description) {
+        Guard.againstNull(id);
+        Guard.againstNullOrBlank(title);
+        Guard.againstNullOrBlank(description);
 
         this.id = id;
         this.title = title;
