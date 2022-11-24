@@ -17,6 +17,16 @@ public final class Guard {
     }
 
     /**
+     * throws IllegalArgumentException if parameter is null
+     * @param parameter value to check
+     */
+    public static void againstNull(Object parameter, String parameterName) {
+        if (Objects.isNull(parameter)) {
+            throw new IllegalArgumentException("%s cannot be null".formatted(parameterName));
+        }
+    }
+
+    /**
      * throws IllegalArgumentException if parameter is null or whitespace
      * @param parameter value to check
      */
