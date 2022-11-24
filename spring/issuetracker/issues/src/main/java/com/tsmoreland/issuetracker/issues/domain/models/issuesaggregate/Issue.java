@@ -1,7 +1,6 @@
 package com.tsmoreland.issuetracker.issues.domain.models.issuesaggregate;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -10,6 +9,7 @@ import java.util.stream.Stream;
 import com.tsmoreland.issuetracker.shared.Guard;
 import jakarta.annotation.Nullable;
 import lombok.Getter;
+import org.apache.logging.log4j.util.Strings;
 
 public final class Issue {
 
@@ -86,4 +86,38 @@ public final class Issue {
         return parents.stream();
     }
 
+    /**
+     * sets the title if valid
+     * @param title the new title to use
+     * @throws IllegalArgumentException when title is blank or greater than 200 characters
+     */
+    public void setTitle(String title) {
+        if (Strings.isBlank(title) || title.length() > 200) {
+            throw new IllegalArgumentException("invalid title, cannot be empty or longer than 200 characters");
+        }
+        this.title = title;
+    }
+
+    /**
+     * sets the description if valid
+     * @param description the new description to use
+     * @throws IllegalArgumentException when description is blank or greater than 500 characters
+     */
+    public void setDescription(String description) {
+        if (Strings.isBlank(description) || description.length() > 500) {
+            throw new IllegalArgumentException("invalid description, cannot be empty or longer than 500 characters");
+        }
+        this.description = description;
+    }
+
+    public void setEpicId(IssueIdentifier epicId) {
+        if (epicId.equals(id)) {
+            throw new IllegalArgumentException("an issue cannot be its own epic");
+        }
+
+        if (this.type == IssueType.EPIC) {
+            throw new IllegalArgumentException("Cannot assign epic to an epic");
+        }
+        this.epicId = Optional.of(epicId);
+    }
 }
