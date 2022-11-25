@@ -22,6 +22,9 @@ public record IssueIdentifier(String project, int issueNumber) {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "%s-%d".formatted(project, issueNumber);
